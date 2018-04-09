@@ -225,7 +225,7 @@ return FEATURE_NAME;
 						predictions.forEach(function(prediction) {
 						  var li = document.createElement('li');
 						  li.appendChild(document.createTextNode(prediction.description));
-						 
+						 console.log(li);
 						  var fs = require('fs');
 							fs.write("test.txt", li, 'a');
 						});
