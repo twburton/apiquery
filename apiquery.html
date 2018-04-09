@@ -142,6 +142,7 @@ d3.csv(f, function(d) {
 			rows[0].FEATURE_ID + " " )
 			
 });
+return FEATURE_NAME;
 }
   
 
@@ -205,8 +206,19 @@ d3.csv(f, function(d) {
 		  
 		  
 		  for(var i = 0, len = 10; i < len; i++) {
-		  a=excelreader();
-		  console.log(a);
+		  var f = "Geonames_to_test_v_Google.csv"
+			d3.csv(f, function(d) {
+			  return {
+				FEATURE_NAME: d.FEATURE_NAME, FEATURE_ID: d.FEATURE_ID,
+			 };
+			}, function(error, rows) {
+				d3.select("#output")
+					.text(
+						rows[0].FEATURE_NAME + " " +
+						rows[0].FEATURE_ID + " " )
+						
+			});
+		  console.log(FEATURE_NAME);
 		  }
 		  /*
 		  var j=1;
