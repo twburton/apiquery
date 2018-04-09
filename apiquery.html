@@ -199,13 +199,11 @@ return FEATURE_NAME;
 		  };
 
 		  var service = new google.maps.places.AutocompleteService();
-		 // console.log(searchBox);
-		  //console.log(autocomp);
 		  service.getQueryPredictions({ input: autocomp }, displaySuggestions);
 		  });
 		  
 		  
-		  for(var i = 0, len = 10; i < len; i++) {
+		 // for(var i = 0, len = 10; i < len; i++) {
 		  var f = "Geonames_to_test_v_Google.csv"
 			d3.csv(f, function(d) {
 			  return {
@@ -216,13 +214,31 @@ return FEATURE_NAME;
 					.text(
 						rows[0].FEATURE_NAME + " " +
 						rows[0].FEATURE_ID + " " )
-						for(var i = 0, len = 10; i < len; i++) {
-		  
-						 console.log(rows[i].FEATURE_NAME);
+						for(var i = 0, len = 90000; i < len; i++) {
+						places.forEach(function(place) {
+					   var displaySuggestions = function(predictions, status) {
+						if (status != google.maps.places.PlacesServiceStatus.OK) {
+						  alert(status);
+						  return;
+						}
+
+						predictions.forEach(function(prediction) {
+						  var li = document.createElement('li');
+						  li.appendChild(document.createTextNode(prediction.description));
+						 
+						  var fs = require('fs');
+							fs.write("test.txt, li, 'a');
+						});
+					  };
+
+					  var service = new google.maps.places.AutocompleteService();
+					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
+					  });
+						 //console.log(rows[i].FEATURE_NAME);
 						 }
 			});
 		 
-		  }
+		  //}
 		  /*
 		  var j=1;
 			var l=1;
