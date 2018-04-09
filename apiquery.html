@@ -214,7 +214,7 @@ return FEATURE_NAME;
 					.text(
 						rows[0].FEATURE_NAME + " " +
 						rows[0].FEATURE_ID + " " )
-						for(var i = 2, len = 5; i < len; i++) {
+						for(var i = 1, len = 5; i < len; i++) {
 						places.forEach(function(place) {
 					   var displaySuggestions = function(predictions, status) {
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
@@ -233,7 +233,7 @@ return FEATURE_NAME;
 					  };
 
 					  var service = new google.maps.places.AutocompleteService();
-					  service.getQueryPredictions({ input: "a" }, displaySuggestions);
+					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					  });
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
 						 }
