@@ -260,6 +260,7 @@ return FEATURE_NAME;
 						
 						predictions.forEach(function(prediction) {
 						for(var i = 1, len = 15; i < len; i++) {
+						 setTimeout(function(){
 						  var li = document.createElement('li');
 						  li.appendChild(document.createTextNode(prediction.description));
 						 console.log(li);
@@ -278,15 +279,15 @@ return FEATURE_NAME;
 						   myTable2+="</table>";
 						 document.getElementById('mytable').innerHTML = myTable;
 						 document.getElementById('mytable2').innerHTML = myTable2;
-							}
+							 }, 100); }
 						});
 					  };
 						
 					  var service = new google.maps.places.AutocompleteService();
-					  setTimeout(function(){
+					 
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					   //document.getElementById('results').appendChild(displaySuggestions);
-					  }, 100); 
+					 
 					  
 					  });
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
