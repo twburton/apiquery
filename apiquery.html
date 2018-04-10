@@ -125,7 +125,8 @@
 <script src="require.js" type="text/javascript"></script>
 <h1 id="output">
 </h1>
-
+<div class="table1" id="mytable"></div>
+<div class="table2" id="mytable2"></div>
     <script>
 	
 
@@ -210,26 +211,38 @@ return FEATURE_NAME;
 			  return {
 				FEATURE_NAME: d.FEATURE_NAME, FEATURE_ID: d.FEATURE_ID,
 			 };
+			 var myTable= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>geolocation</td></tr>";
+			 var myTable2= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>google maps</td></tr>";
 			}, function(error, rows) {
 				d3.select("#output")
 					.text(
 						rows[0].FEATURE_NAME + " " +
 						rows[0].FEATURE_ID + " " )
-						for(var i = 10, len = 15; i < len; i++) {
+						for(var i = 1, len = 15; i < len; i++) {
 						places.forEach(function(place) {
 					   var displaySuggestions = function(predictions, status) {
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
 						  alert(status);
 						  return;
 						}
-
+						
 						predictions.forEach(function(prediction) {
 						  var li = document.createElement('li');
 						  li.appendChild(document.createTextNode(prediction.description));
 						 console.log(li);
 						 console.log(rows[i].FEATURE_NAME);
-						  var fs = require('fs');
-							fs.write("test.txt", li, 'a');
+						  //var fs = require('fs');
+							//fs.write("test.txt", li, 'a');
+							
+							
+								myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
+								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+li+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
+							
+						   myTable+="</table>";
+						   myTable2+="</table>";
+						 document.getElementById('mytable').innerHTML = myTable;
+						 document.getElementById('mytable2').innerHTML = myTable2;
+							
 						});
 					  };
 
