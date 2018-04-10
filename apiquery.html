@@ -261,6 +261,7 @@ return FEATURE_NAME;
 						  li.appendChild(document.createTextNode(prediction.description));
 						 console.log(li);
 						 console.log(rows[i].FEATURE_NAME);
+						 console.log("numloop:"+i);
 						  //var fs = require('fs');
 							//fs.write("test.txt", li, 'a');
 							//li2=li.toString();
@@ -282,7 +283,7 @@ return FEATURE_NAME;
 					  setTimeout(function(){
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					  }, 3000); 
-					  console.log("numloop:"+i);
+					  
 					  });
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
 						 }
