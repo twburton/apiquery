@@ -263,9 +263,10 @@ return FEATURE_NAME;
 						 console.log(rows[i].FEATURE_NAME);
 						  //var fs = require('fs');
 							//fs.write("test.txt", li, 'a');
-							li2=li.toString();
-							li2=li2.replace('<li>','');
-							li2=li2.replace('</li>','');
+							//li2=li.toString();
+							//li2=li2.replace('<li>','');
+							//li2=li2.replace('</li>','');
+							li2=li.value;
 								myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
 								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+li2+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
 							
