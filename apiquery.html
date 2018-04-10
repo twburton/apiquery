@@ -113,6 +113,33 @@
       #target {
         width: 345px;
       }
+	  .table2{
+	font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 28%;
+	height: 9%;
+	table-layout: fixed;
+	overflow: hidden;
+	float: left;
+	position: absolute;
+	margin-left: 0%;
+	margin-right:50%;
+	margin-top: 0%;
+	
+}
+.table1{
+	font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 25%;
+	height: 20%;
+	table-layout: fixed;
+	overflow: hidden;
+	float: right;
+	position: absolute;
+	margin-left: 40%;
+	margin-right:30%;
+	margin-top: 25%;
+}
     </style>
   </head>
   <body>
@@ -238,7 +265,7 @@ return FEATURE_NAME;
 							li2=li2.replace('<li>','');
 							li2=li2.replace('</li>','');
 								myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
-								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+li+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
+								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+li2+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
 							
 						   myTable+="</table>";
 						   myTable2+="</table>";
