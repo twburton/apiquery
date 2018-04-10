@@ -251,7 +251,8 @@ return FEATURE_NAME;
 					  var service = new google.maps.places.AutocompleteService();
 					  
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
-					  setTimeout(function(){}, 1000); 
+					  setTimeout(function(){}, 3000); 
+					  console.log("numloop:"+i);
 					  });
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
 						 }
