@@ -271,7 +271,7 @@ return FEATURE_NAME;
 							//li2=li2.replace('</li>','');
 							li2=li.value;
 								myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
-								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+displaySuggestions+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
+								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+li2+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
 							
 						   myTable+="</table>";
 						   myTable2+="</table>";
@@ -284,7 +284,7 @@ return FEATURE_NAME;
 					  var service = new google.maps.places.AutocompleteService();
 					  setTimeout(function(){
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
-					   document.getElementById('results').appendChild(displaySuggestions);
+					   //document.getElementById('results').appendChild(displaySuggestions);
 					  }, 3000); 
 					  
 					  });
