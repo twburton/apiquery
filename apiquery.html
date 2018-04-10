@@ -251,6 +251,7 @@ return FEATURE_NAME;
 						rows[0].FEATURE_ID + " " )
 						
 						places.forEach(function(place) {
+						for(var i = 1, len = 15; i < len; i++) {
 					   var displaySuggestions = function(predictions, status) {
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
 						  alert(status);
@@ -258,7 +259,7 @@ return FEATURE_NAME;
 						}
 						
 						predictions.forEach(function(prediction) {
-						for(var i = 1, len = 15; i < len; i++) {
+						
 						  var li = document.createElement('li');
 						  li.appendChild(document.createTextNode(prediction.description));
 						 console.log(li);
@@ -277,7 +278,7 @@ return FEATURE_NAME;
 						   myTable2+="</table>";
 						 document.getElementById('mytable').innerHTML = myTable;
 						 document.getElementById('mytable2').innerHTML = myTable2;
-							}
+							
 						});
 					  };
 						
@@ -286,7 +287,7 @@ return FEATURE_NAME;
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					   //document.getElementById('results').appendChild(displaySuggestions);
 					  }, 3000); 
-					  
+					  }
 					  });
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
 						 
