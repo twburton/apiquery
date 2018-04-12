@@ -259,7 +259,7 @@ return FEATURE_NAME;
 						}
 						
 						myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
-						myTable+="</table><br><br><br><br><br>";
+						myTable+="</table><br>";
 						predictions.forEach(function(prediction) {
 						//for(var i = 1, len = 15; i < len; i++) {
 						
@@ -278,7 +278,7 @@ return FEATURE_NAME;
 								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+prediction.description+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
 							
 						   
-						   myTable2+="</table>";
+						   myTable2+="</table><br>";
 						 
 						 document.getElementById('mytable2').innerHTML = myTable2;
 							// }
