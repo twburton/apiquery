@@ -231,7 +231,7 @@ return FEATURE_NAME;
 		  };
 
 		  var service = new google.maps.places.AutocompleteService();
-		  service.getQueryPredictions({ input: autocomp }, displaySuggestions);
+		  //service.getQueryPredictions({ input: autocomp }, displaySuggestions);
 		  });
 		  
 		  
@@ -249,7 +249,7 @@ return FEATURE_NAME;
 					.text(
 						rows[0].FEATURE_NAME + " " +
 						rows[0].FEATURE_ID + " " )
-						
+						var i=1;
 						places.forEach(function(place) {
 						
 					   var displaySuggestions = function(predictions, status) {
@@ -257,7 +257,9 @@ return FEATURE_NAME;
 						  alert(status);
 						  return;
 						}
-						var i=1;
+						
+						myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
+						myTable+="</table><br><br><br><br><br>";
 						predictions.forEach(function(prediction) {
 						//for(var i = 1, len = 15; i < len; i++) {
 						
@@ -273,15 +275,15 @@ return FEATURE_NAME;
 							//li2=li2.replace('</li>','');
 							//li2=li.value;
 							//li2=document.getElementById('li').getAttribute("value");
-								myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
+								
 								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+prediction.description+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
 							
-						   myTable+="</table>";
+						   
 						   myTable2+="</table>";
-						 document.getElementById('mytable').innerHTML = myTable;
+						 
 						 document.getElementById('mytable2').innerHTML = myTable2;
 							// }
-							i++;
+							
 						});
 					  };
 						// setTimeout(function(){ }, 100);
@@ -289,6 +291,8 @@ return FEATURE_NAME;
 					 
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					   //document.getElementById('results').appendChild(displaySuggestions);
+					   document.getElementById('mytable').innerHTML = myTable;
+					   i++;
 					  });
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
 						 
