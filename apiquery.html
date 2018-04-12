@@ -16,6 +16,7 @@
 
   <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
   <script type="text/javascript">
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   
   function myFunction() {
   var x = document.getElementById("searchitem").value;
@@ -214,6 +215,7 @@ return FEATURE_NAME;
 	  
         searchBox.addListener('places_changed', function() {
           var places = searchBox.getPlaces();
+		  /* 
 		var autocomp = document.querySelector('#pac-input').value;
 		
 		 places.forEach(function(place) {
@@ -231,9 +233,9 @@ return FEATURE_NAME;
 		  };
 
 		  var service = new google.maps.places.AutocompleteService();
-		  //service.getQueryPredictions({ input: autocomp }, displaySuggestions);
+		  service.getQueryPredictions({ input: autocomp }, displaySuggestions);
 		  });
-		  
+		  */
 		  
 		 // for(var i = 0, len = 10; i < len; i++) {
 		 var myTable= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>geolocation</td></tr>";
@@ -251,15 +253,14 @@ return FEATURE_NAME;
 						rows[0].FEATURE_ID + " " )
 						//var i=1;
 						//places.forEach(function(place) {
-						for(var i = 1, len = 15; i < len; i++) {
+						for(var i = 1, len = 2; i < len; i++) {
 					   var displaySuggestions = function(predictions, status) {
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
 						  alert(status);
 						  return;
 						}
 						
-						myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
-						myTable+="</table><br><br><br><br><br>";
+						setTimeout(function(){ 
 						predictions.forEach(function(prediction) {
 						//for(var i = 1, len = 15; i < len; i++) {
 						
@@ -278,18 +279,24 @@ return FEATURE_NAME;
 								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+prediction.description+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
 							
 						   
-						   myTable2+="</table>";
+						   myTable2+="</table><br>";
 						 
 						 document.getElementById('mytable2').innerHTML = myTable2;
 							// }
 							
-						});
+							for(var k = 0, len = 9999999; k < len; k++) { console.log("aa");var aassd = 99999999999999*99999999999999}
+							
+						}); 
+						}, 5000);
+						
 					  };
-						// setTimeout(function(){ }, 100);
+						// 
 					  var service = new google.maps.places.AutocompleteService();
 					 
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					   //document.getElementById('results').appendChild(displaySuggestions);
+					   myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
+						myTable+="</table><br>";
 					   document.getElementById('mytable').innerHTML = myTable;
 					   
 					   console.log(rows[i].FEATURE_NAME);
@@ -300,7 +307,87 @@ return FEATURE_NAME;
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
 						 
 			});
+		 exportReportTableToCSV(myTable, "test.csv");
 		 
+		 
+		 
+		 
+		 
+		  function exportReportTableToCSV($table, filename) {
+    var dumpd='';
+    var csvData ='';
+
+    $table.each(function(){
+            var $rows = $(this).find('tr:has(td)');
+            var  $header =  $(this).find('tr:has(th)');                
+
+                tmpColDelim = String.fromCharCode(11), // vertical tab character
+                tmpRowDelim = String.fromCharCode(0), // null character
+
+                colDelim = '","',
+                rowDelim = '"\r\n"',
+
+                csv = '"' + $header.map(function (i, head) {
+                    var $head = $(head),
+                        $cols = $head.find('th');
+
+                    return $cols.map(function (j, col) {
+                        var $col = $(col),
+                            text = $col.text();
+
+                        if(text == "&nbsp;")
+                                text = "";
+                        if(text == "PROGRAMS")
+                                text = "";
+                        console.log(text);
+                        return text.replace('"', '""'); 
+
+                    }).get().join(tmpColDelim);
+
+                }).get().join(tmpRowDelim)
+                    .split(tmpRowDelim).join(rowDelim)
+                    .split(tmpColDelim).join(colDelim) + '"' ;
+
+            csv+='\r\n';
+
+            csv+= '"' + $rows.map(function (i, row) {
+                    var $row = $(row),
+                        $cols = $row.find('td');
+
+                    return $cols.map(function (j, col) {
+                        var $col = $(col);
+                        var text;
+                           if($($(col)).find("input:checkbox").length > 0)
+                                text = $($(col)).find("input:checkbox").prop('checked') ? 'Yes' : 'No';
+                            else
+                                text = $col.text();
+
+                            if(text === "")
+                            {
+                                text = "";
+                            }
+
+                        return text.replace('"', '""'); 
+
+                    }).get().join(tmpColDelim);
+
+                }).get().join(tmpRowDelim)
+                    .split(tmpRowDelim).join(rowDelim)
+                    .split(tmpColDelim).join(colDelim) + '"';
+
+            dumpd+=csv+"\n\n";
+       });
+
+
+   var csvData = new Blob([dumpd], { type: 'text/csv' }); //new way
+    var csvUrl = URL.createObjectURL(csvData);
+
+    $(this)
+    .attr({
+        'download': filename,
+        'href': csvUrl
+    });
+}
 		  //}
 		  /*
 		  var j=1;
