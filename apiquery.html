@@ -289,7 +289,7 @@ return FEATURE_NAME;
 						// 
 					  var service = new google.maps.places.AutocompleteService();
 					 setTimeout(function(){ 
-					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);}, 1000);
+					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);}, 10000);
 					   //document.getElementById('results').appendChild(displaySuggestions);
 					   myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
 						myTable+="</table><br>";
