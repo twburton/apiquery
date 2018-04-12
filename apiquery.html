@@ -258,8 +258,7 @@ return FEATURE_NAME;
 						  return;
 						}
 						
-						myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
-						myTable+="</table><br>";
+						
 						predictions.forEach(function(prediction) {
 						//for(var i = 1, len = 15; i < len; i++) {
 						
@@ -290,6 +289,8 @@ return FEATURE_NAME;
 					 
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					   //document.getElementById('results').appendChild(displaySuggestions);
+					   myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
+						myTable+="</table><br>";
 					   document.getElementById('mytable').innerHTML = myTable;
 					   
 					   console.log(rows[i].FEATURE_NAME);
