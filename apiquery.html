@@ -121,7 +121,7 @@
 	font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 35%;
-	height: 50%;
+	height: 70%;
 	table-layout: fixed;
 	overflow: hidden;
 	float: right;
@@ -135,7 +135,7 @@
 	font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 30%;
-	height: 50%;
+	height: 70%;
 	table-layout: fixed;
 	overflow: hidden;
 	float: right;
@@ -297,9 +297,15 @@ return FEATURE_NAME;
 					  };
 						// 
 					  var service = new google.maps.places.AutocompleteService();
-					 setTimeout(function(){ 
+					  
+					  //change timeout location
+					//setTimeout(function(){ 
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
-					  }, 2000);
+					  //}, 2000);
+					  
+					  
+					  
+					  
 					   //document.getElementById('results').appendChild(displaySuggestions);
 					   myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
 						myTable+="</table><br>";
