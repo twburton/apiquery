@@ -254,14 +254,13 @@ return FEATURE_NAME;
 						//var i=1;
 						//places.forEach(function(place) {
 						for(var i = 1, len = 15; i < len; i++) {
-						setTimeout(function(){ 
 					   var displaySuggestions = function(predictions, status) {
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
 						  alert(status);
 						  return;
 						}
 						
-						
+						setTimeout(function(){ 
 						predictions.forEach(function(prediction) {
 						//for(var i = 1, len = 15; i < len; i++) {
 						
@@ -285,7 +284,7 @@ return FEATURE_NAME;
 						 document.getElementById('mytable2').innerHTML = myTable2;
 							// }
 							
-						});
+						}); }, 5000);
 					  };
 						// 
 					  var service = new google.maps.places.AutocompleteService();
@@ -302,7 +301,7 @@ return FEATURE_NAME;
 						 }
 					  //}); places for each
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
-						 }, 10000);
+						 
 			});
 		 exportReportTableToCSV(myTable, "test.csv");
 		 
