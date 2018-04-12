@@ -265,9 +265,8 @@ return FEATURE_NAME;
 						
 						  var li = document.createElement('li');
 						  li.appendChild(document.createTextNode(prediction.description));
-						 console.log(li);
-						 console.log(rows[i].FEATURE_NAME);
-						 console.log("numloop:"+i);
+						// console.log(li);
+						 
 						  //var fs = require('fs');
 							//fs.write("test.txt", li, 'a');
 							//li2=document.getElementById("li").innerText;
@@ -292,7 +291,10 @@ return FEATURE_NAME;
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					   //document.getElementById('results').appendChild(displaySuggestions);
 					   document.getElementById('mytable').innerHTML = myTable;
-					   i++;
+					   
+					   console.log(rows[i].FEATURE_NAME);
+						 console.log("numloop:"+i);
+						 i++;
 					  });
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
 						 
