@@ -257,9 +257,9 @@ return FEATURE_NAME;
 						  alert(status);
 						  return;
 						}
-						
+						var i=1;
 						predictions.forEach(function(prediction) {
-						for(var i = 1, len = 15; i < len; i++) {
+						//for(var i = 1, len = 15; i < len; i++) {
 						
 						  var li = document.createElement('li');
 						  li.appendChild(document.createTextNode(prediction.description));
@@ -280,7 +280,8 @@ return FEATURE_NAME;
 						   myTable2+="</table>";
 						 document.getElementById('mytable').innerHTML = myTable;
 						 document.getElementById('mytable2').innerHTML = myTable2;
-							 }
+							// }
+							i++;
 						});
 					  };
 						// setTimeout(function(){ }, 100);
