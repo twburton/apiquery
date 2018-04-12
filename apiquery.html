@@ -214,6 +214,7 @@ return FEATURE_NAME;
 	  
         searchBox.addListener('places_changed', function() {
           var places = searchBox.getPlaces();
+		  /* 
 		var autocomp = document.querySelector('#pac-input').value;
 		
 		 places.forEach(function(place) {
@@ -231,9 +232,9 @@ return FEATURE_NAME;
 		  };
 
 		  var service = new google.maps.places.AutocompleteService();
-		  //service.getQueryPredictions({ input: autocomp }, displaySuggestions);
+		  service.getQueryPredictions({ input: autocomp }, displaySuggestions);
 		  });
-		  
+		  */
 		  
 		 // for(var i = 0, len = 10; i < len; i++) {
 		 var myTable= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>geolocation</td></tr>";
