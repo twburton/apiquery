@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Query</title>
+  <style type="text/css">
+    html, body {margin: 0; width:100%; height: 100%; }
+    #map_canvas { position:absolute; top:50px;bottom:200px;left:50px;right:600px;}
+	#searchbox1{ position:absolute; top:900px;bottom:10px;left:50px;right:0px;}
+	#searchitem-show{ position:absolute; top:100px;bottom:0px;left:1700px;right:50px;}
+	#results{ position:absolute; top:100px;bottom:0px;left:1700px;right:50px;}
+	#results2{ position:absolute; top:100px;bottom:0px;left:1500px;right:50px;}
+  </style>
+ 
+  
+ 
+
+  <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+  <script type="text/javascript">
+  
+  function myFunction() {
+  var x = document.getElementById("searchitem").value;
+  //document.getElementById("searchitem-show").innerHTML = x;
+  console.log(x);
+}
+// <div id="searchbox1" class="topnav">
+  // <input type="text" placeholder="Search.." id="searchitem">
+  // <button type="button" onclick="myFunction()">Search</button>
+//</div>
+//<p id="searchitem-show"></p>
+ </script>
+ 
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Places Searchbox</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 50%;
+		width: 50%
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+	  .table2{
+	font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 35%;
+	height: 50%;
+	table-layout: fixed;
+	overflow: hidden;
+	float: right;
+	position: absolute;
+	margin-left: 50%;
+	margin-right: 0%;
+	margin-top: 0%;
+	
+}
+ .table1{
+	font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 30%;
+	height: 50%;
+	table-layout: fixed;
+	overflow: hidden;
+	float: right;
+	position: absolute;
+	margin-left: 20%;
+	margin-right: 0%;
+	margin-top: 0%;
+	
+}
+    </style>
+  </head>
+  <body>
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map"></div>
+	<div id="results"></div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="require.js" type="text/javascript"></script>
+<h1 id="output">
+</h1>
+<div class="table1" id="mytable"></div>
+<div class="table2" id="mytable2"></div>
+    <script>
+	
+
+/*
+ function excelreader(){
+ var f = "Geonames_to_test_v_Google.csv"
+d3.csv(f, function(d) {
+  return {
+    FEATURE_NAME: d.FEATURE_NAME, FEATURE_ID: d.FEATURE_ID,
+ };
+}, function(error, rows) {
+	d3.select("#output")
+		.text(
+			rows[0].FEATURE_NAME + " " +
+			rows[0].FEATURE_ID + " " )
+			
+});
+return FEATURE_NAME;
+}*/
+  
+
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 39.048214, lng: -76.815198},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+		
+		
+		//var autocomplete1 = new google.maps.places.Autocomplete(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+         // searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+	
+		
+	  
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+		var autocomp = document.querySelector('#pac-input').value;
+		
+		 places.forEach(function(place) {
+		   var displaySuggestions = function(predictions, status) {
+			if (status != google.maps.places.PlacesServiceStatus.OK) {
+			  alert(status);
+			  return;
+			}
+
+			predictions.forEach(function(prediction) {
+			  var li = document.createElement('li');
+			  li.appendChild(document.createTextNode(prediction.description));
+			  document.getElementById('results').appendChild(li);
+			});
+		  };
+
+		  var service = new google.maps.places.AutocompleteService();
+		  //service.getQueryPredictions({ input: autocomp }, displaySuggestions);
+		  });
+		  
+		  
+		 // for(var i = 0, len = 10; i < len; i++) {
+		 var myTable= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>geolocation</td></tr>";
+			 var myTable2= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>google maps</td></tr>";
+		  var f = "Geonames_to_test_v_Google.csv"
+			d3.csv(f, function(d) {
+			  return {
+				FEATURE_NAME: d.FEATURE_NAME, FEATURE_ID: d.FEATURE_ID,
+			 };
+			 
+			}, function(error, rows) {
+				d3.select("#output")
+					.text(
+						rows[0].FEATURE_NAME + " " +
+						rows[0].FEATURE_ID + " " )
+						//var i=1;
+						//places.forEach(function(place) {
+						for(var i = 1, len = 15; i < len; i++) {
+					   var displaySuggestions = function(predictions, status) {
+						if (status != google.maps.places.PlacesServiceStatus.OK) {
+						  alert(status);
+						  return;
+						}
+						
+						myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
+						myTable+="</table><br><br><br><br><br>";
+						predictions.forEach(function(prediction) {
+						//for(var i = 1, len = 15; i < len; i++) {
+						
+						  var li = document.createElement('li');
+						  li.appendChild(document.createTextNode(prediction.description));
+						// console.log(li);
+						 
+						  //var fs = require('fs');
+							//fs.write("test.txt", li, 'a');
+							//li2=document.getElementById("li").innerText;
+							//li2=li2.replace('<li>','');
+							//li2=li2.replace('</li>','');
+							//li2=li.value;
+							//li2=document.getElementById('li').getAttribute("value");
+								
+								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+prediction.description+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
+							
+						   
+						   myTable2+="</table>";
+						 
+						 document.getElementById('mytable2').innerHTML = myTable2;
+							// }
+							
+						});
+					  };
+						// setTimeout(function(){ }, 100);
+					  var service = new google.maps.places.AutocompleteService();
+					 
+					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
+					   //document.getElementById('results').appendChild(displaySuggestions);
+					   document.getElementById('mytable').innerHTML = myTable;
+					   
+					   console.log(rows[i].FEATURE_NAME);
+						 console.log("numloop:"+i);
+						 //i++;
+						 }
+					  //}); places for each
+						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
+						 
+			});
+		 
+		  //}
+		  /*
+		  var j=1;
+			var l=1;
+			
+			do
+{
+    a=excelreader()
+
+    if (a!=null)
+    {
+        document.write("value is " + a + "&nbsp ;&nbsp ;&nbsp ;&nbsp ;");
+        j++;
+    }
+    else
+    {
+        l++;
+        j=1;
+        document.write("<br />");
+    }
+
+    b = excelreader()
+}while(a!=null || b!=null);
+*/
+		  
+			
+			//type: ['restaurant']
+			
+			//get all places
+			for(var i = 0, len = places.length; i < len; i++) {
+			//console.log(places[i]);
+			//console.log(searchBox);
+			 //document.getElementById('results').appendChild(places[i]);
+			}
+			 places.forEach(function(place) {
+			
+			
+			 document.getElementById("searchitem-show").innerHTML = place.name;
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+			
+		/*
+          var request = {
+			location: place,
+			radius: '500',
+			type: ['restaurant']
+		  };
+	*/
+		
+			
+		
+			
+			
+			
+			
+			
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+	  /*
+	  
+	  var displaySuggestions = function(predictions, status) {
+    if (status != google.maps.places.PlacesServiceStatus.OK) {
+      alert(status);
+      return;
+    }
+
+    predictions.forEach(function(prediction) {
+      var li = document.createElement('li');
+      li.appendChild(document.createTextNode(prediction.description));
+      document.getElementById('results').appendChild(li);
+    });
+  };
+
+  var service = new google.maps.places.AutocompleteService();
+  service.getQueryPredictions({ input: 'pizza near Syd' }, displaySuggestions);
+   document.getElementById('results').appendChild(displaySuggestions);
+   console.log(displaySuggestions);
+   
+   
+   */
+  /*
+    var map, path = new google.maps.MVCArray(), service = new google.maps.DirectionsService(), shiftPressed = false, poly;
+
+    google.maps.event.addDomListener(document, "keydown", function(e) { shiftPressed = e.shiftKey; });
+    google.maps.event.addDomListener(document, "keyup", function(e) { shiftPressed = e.shiftKey; });
+	linecolor = '#FF0000'
+   //<input type="button" onclick="exportGeoJson()" value="export GeoJson" />
+	  
+    function Init() {
+      var myOptions = {
+        zoom: 17,
+        center: new google.maps.LatLng(39.048214, -76.815198),
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+        mapTypeControlOptions: {
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID, google.maps.MapTypeId.SATELLITE,google.maps.MapTypeId.TERRAIN]
+        },
+        disableDoubleClickZoom: true,
+        scrollwheel: true,
+        draggableCursor: "crosshair"
+      }
+	  
+      map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	  poly = new google.maps.Polyline({ strokeColor: linecolor,
+      strokeOpacity: .5,
+      strokeWeight: 5, map: map });
+      google.maps.event.addListener(map, "click", function(evt) {
+        if (shiftPressed || path.getLength() === 0) {
+          path.push(evt.latLng);
+		  if(path.getLength() === 1) {
+			poly.setPath(path);
+		  }
+        } else {
+          service.route({ origin: path.getAt(path.getLength() - 1), destination: evt.latLng, travelMode: google.maps.DirectionsTravelMode.DRIVING }, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+              for(var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+			    path.push(result.routes[0].overview_path[i]);
+			  }
+            }
+          });
+        }
+      });
+    }
+	
+	function exportGeoJson() {
+    var geoJson = {
+        "type": "FeatureCollection",
+            "features": []
+    };
+    var polylineFeature = {
+        "type": "Feature",
+            "geometry": {
+            "type": "LineString",
+                "coordinates": []
+        },
+            "properties": {}
+    };
+    for (var i = 0; i < poly.getPath().getLength(); i++) {
+        var pt = poly.getPath().getAt(i);
+        polylineFeature.geometry.coordinates.push([
+        pt.lng(), pt.lat()]);
+    }
+    geoJson.features.push(polylineFeature);
+    document.getElementById('geojson').value = JSON.stringify(geoJson);
+    poly.setPath([]);
+    map.data.addGeoJson(geoJson);
+    // Set the stroke width, and fill color for each polygon
+    map.data.setStyle({
+        strokeColor: 'green',
+        strokeWeight: 2
+    });
+    map.data.toGeoJson( function(data) {
+      document.getElementById('exported').value=JSON.stringify(data)
+    });
+
+}
+
+
+callback=initService"  replace initautocomplete
+*/
+  </script>
+</head>
+
+
+  <div id="map_canvas"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUDKC1c3iyo0APPFPdw0_MsAHoZwlf60g&libraries=places&callback=initAutocomplete"
+         async defer></script>
+  
+  
+   
+</body>
+</html>
