@@ -254,6 +254,7 @@ return FEATURE_NAME;
 						//var i=1;
 						//places.forEach(function(place) {
 						for(var i = 1, len = 15; i < len; i++) {
+						setTimeout(function(){ 
 					   var displaySuggestions = function(predictions, status) {
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
 						  alert(status);
@@ -288,8 +289,8 @@ return FEATURE_NAME;
 					  };
 						// 
 					  var service = new google.maps.places.AutocompleteService();
-					 setTimeout(function(){ 
-					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);}, 10000);
+					 
+					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					   //document.getElementById('results').appendChild(displaySuggestions);
 					   myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
 						myTable+="</table><br>";
@@ -301,7 +302,7 @@ return FEATURE_NAME;
 						 }
 					  //}); places for each
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
-						 
+						 }, 10000);
 			});
 		 exportReportTableToCSV(myTable, "test.csv");
 		 
