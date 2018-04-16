@@ -302,10 +302,7 @@ return FEATURE_NAME;
 					//setTimeout(function(){ 
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
 					  //}, 2000);
-					  
-					  
-					  
-					  
+					 
 					   //document.getElementById('results').appendChild(displaySuggestions);
 					   myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
 						myTable+="</table><br>";
@@ -313,6 +310,7 @@ return FEATURE_NAME;
 					   
 					   console.log(rows[i].FEATURE_NAME);
 						 console.log("numloop:"+i);
+						 for(var k = 0, len = 999; k < len; k++) { console.log("aa");var aassd = 99999999999999*99999999999999}
 						 //i++;
 						 }
 					  //}); places for each
