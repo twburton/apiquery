@@ -299,9 +299,9 @@ return FEATURE_NAME;
 					  var service = new google.maps.places.AutocompleteService();
 					  
 					  //change timeout location
-					//setTimeout(function(){ 
+					setTimeout(function(){ 
 					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
-					  //}, 2000);
+					  }, 2000);
 					  
 					  
 					  
