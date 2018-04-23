@@ -242,6 +242,7 @@ return FEATURE_NAME;
 		 var myTable= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>geolocation</td></tr>";
 			 var myTable2= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>google maps</td></tr>";
 		  var f = "Geonames_to_test_v_Google.csv"
+		  var predictionarray = [];
 			d3.csv(f, function(d) {
 			  return {
 				FEATURE_NAME: d.FEATURE_NAME, FEATURE_ID: d.FEATURE_ID,
@@ -281,7 +282,7 @@ return FEATURE_NAME;
 							//li2=document.getElementById('li').getAttribute("value");
 								
 								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+prediction.description+"count"+j+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
-							
+							predictionarray.push(prediction.description);
 						   
 						   myTable2+="</table><br>";
 						 
@@ -317,87 +318,21 @@ return FEATURE_NAME;
 						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
 						 
 			});
-		 exportReportTableToCSV(myTable, "test.csv");
+			
+			exportToCsv('test.csv', [
+	['name','description'],	
+  ['david','123'],
+  ['jona','""'],
+  ['a','b'],
+
+])
+			
+		
 		 
 		 
 		 
 		 
-		 
-		  function exportReportTableToCSV($table, filename) {
-    var dumpd='';
-    var csvData ='';
-
-    $table.each(function(){
-            var $rows = $(this).find('tr:has(td)');
-            var  $header =  $(this).find('tr:has(th)');                
-
-                tmpColDelim = String.fromCharCode(11), // vertical tab character
-                tmpRowDelim = String.fromCharCode(0), // null character
-
-                colDelim = '","',
-                rowDelim = '"\r\n"',
-
-                csv = '"' + $header.map(function (i, head) {
-                    var $head = $(head),
-                        $cols = $head.find('th');
-
-                    return $cols.map(function (j, col) {
-                        var $col = $(col),
-                            text = $col.text();
-
-                        if(text == "&nbsp;")
-                                text = "";
-                        if(text == "PROGRAMS")
-                                text = "";
-                        console.log(text);
-                        return text.replace('"', '""'); 
-
-                    }).get().join(tmpColDelim);
-
-                }).get().join(tmpRowDelim)
-                    .split(tmpRowDelim).join(rowDelim)
-                    .split(tmpColDelim).join(colDelim) + '"' ;
-
-            csv+='\r\n';
-
-            csv+= '"' + $rows.map(function (i, row) {
-                    var $row = $(row),
-                        $cols = $row.find('td');
-
-                    return $cols.map(function (j, col) {
-                        var $col = $(col);
-                        var text;
-                           if($($(col)).find("input:checkbox").length > 0)
-                                text = $($(col)).find("input:checkbox").prop('checked') ? 'Yes' : 'No';
-                            else
-                                text = $col.text();
-
-                            if(text === "")
-                            {
-                                text = "";
-                            }
-
-                        return text.replace('"', '""'); 
-
-                    }).get().join(tmpColDelim);
-
-                }).get().join(tmpRowDelim)
-                    .split(tmpRowDelim).join(rowDelim)
-                    .split(tmpColDelim).join(colDelim) + '"';
-
-            dumpd+=csv+"\n\n";
-       });
-
-
-   var csvData = new Blob([dumpd], { type: 'text/csv' }); //new way
-    var csvUrl = URL.createObjectURL(csvData);
-
-    $(this)
-    .attr({
-        'download': filename,
-        'href': csvUrl
-    });
-}
+	
 		  //}
 		  /*
 		  var j=1;
@@ -523,6 +458,49 @@ return FEATURE_NAME;
         });
       }
 
+	  
+	  
+	  
+	  function exportToCsv(filename, rows) {
+        var processRow = function (row) {
+            var finalVal = '';
+            for (var j = 0; j < row.length; j++) {
+                var innerValue = row[j] === null ? '' : row[j].toString();
+                if (row[j] instanceof Date) {
+                    innerValue = row[j].toLocaleString();
+                };
+                var result = innerValue.replace(/"/g, '""');
+                if (result.search(/("|,|\n)/g) >= 0)
+                    result = '"' + result + '"';
+                if (j > 0)
+                    finalVal += ',';
+                finalVal += result;
+            }
+            return finalVal + '\n';
+        };
+
+        var csvFile = '';
+        for (var i = 0; i < rows.length; i++) {
+            csvFile += processRow(rows[i]);
+        }
+
+        var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+        if (navigator.msSaveBlob) { // IE 10+
+            navigator.msSaveBlob(blob, filename);
+        } else {
+            var link = document.createElement("a");
+            if (link.download !== undefined) { // feature detection
+                // Browsers that support HTML5 download attribute
+                var url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    }
 	  /*
 	  
 	  var displaySuggestions = function(predictions, status) {
