@@ -213,7 +213,7 @@ return FEATURE_NAME;
         // more details for that place.
 	
 		
-	  
+	  var count = 0;
         searchBox.addListener('places_changed', function() {
           var places = searchBox.getPlaces();
 		  /* 
@@ -243,7 +243,7 @@ return FEATURE_NAME;
 			 var myTable2= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>google maps</td></tr>";
 		  var f = "JenMcKay_to_test_v_Google.csv"
 		  var predictionarray = [];
-		  var count = 0;
+		  
 			d3.csv(f, function(d) {
 			  return {
 				FEATURE_NAME: d.FEATURE_NAME, FEATURE_ID: d.FEATURE_ID,
