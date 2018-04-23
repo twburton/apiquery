@@ -256,7 +256,7 @@ return FEATURE_NAME;
 						//var i=1;
 						//places.forEach(function(place) {
 						j=1
-						for(var i = 1, len = 5; i < len; i++) {
+						for(var i = 1, len = 2; i < len; i++) {
 					   var displaySuggestions = function(predictions, status) {
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
 						  alert(status);
@@ -321,9 +321,7 @@ return FEATURE_NAME;
 						 exportToCsv('test.csv', [
 	
 			[rows[1].FEATURE_NAME,predictionarray[1]],
-			[rows[2].FEATURE_NAME,predictionarray[2]],
-			[rows[3].FEATURE_NAME,predictionarray[3]],
-			[rows[4].FEATURE_NAME,predictionarray[4]],
+			
 			
 
 ])
