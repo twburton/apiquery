@@ -243,6 +243,7 @@ return FEATURE_NAME;
 			 var myTable2= "<table><tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bolder; font-size:larger;'>google maps</td></tr>";
 		  var f = "Geonames_to_test_v_Google.csv"
 		  var predictionarray = [];
+		  var count = 0;
 			d3.csv(f, function(d) {
 			  return {
 				FEATURE_NAME: d.FEATURE_NAME, FEATURE_ID: d.FEATURE_ID,
@@ -260,6 +261,7 @@ return FEATURE_NAME;
 					   var displaySuggestions = function(predictions, status) {
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
 						  alert(status);
+						  count=count+1;
 						  return;
 						}
 						
@@ -326,7 +328,7 @@ return FEATURE_NAME;
 		
 		 
 		 
-		 
+		 console.log("no results:"+count);
 		 
 	
 		  //}
