@@ -262,6 +262,7 @@ return FEATURE_NAME;
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
 						  alert(status);
 						  count++;
+						  console.log("no results:"+count);
 						  return;
 						}
 						
@@ -283,7 +284,7 @@ return FEATURE_NAME;
 							//li2=li.value;
 							//li2=document.getElementById('li').getAttribute("value");
 								
-								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps; font-weight: bold; font-style:italic;'>google maps: "+prediction.description+"count"+j+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
+								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps;  font-style:italic;'>google maps: "+prediction.description+"count"+j+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
 							predictionarray.push(prediction.description);
 						   console.log("prediction: "+prediction.description);
 						   
