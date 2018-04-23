@@ -320,10 +320,9 @@ return FEATURE_NAME;
 			});
 			
 			exportToCsv('test.csv', [
-	['name','description'],	
-  ['david','123'],
-  ['jona','""'],
-  ['a','b'],
+	for(var i = 1,  i < rows.length; i++) {
+			[rows[i].FEATURE_NAME,predictionarray[i]],
+			}
 
 ])
 			
