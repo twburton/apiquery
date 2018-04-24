@@ -287,7 +287,7 @@ return FEATURE_NAME;
 								myTable2+="<tr><td style='height:15px; color:black; font-variant: small-caps;  font-style:italic;'>google maps: "+prediction.description+"count"+j+"</td></tr><tr><td style='heigh:15px;'>&nbsp;</td></tr>";
 							predictionarray.push(prediction.description);
 						   console.log("prediction: "+prediction.description);
-						  // for(var k = 0, len2 = 500; k < len2; k++) { console.log("-");var aassd = 99999999999999*99999999999999}
+						   //for(var k = 0, len2 = 500; k < len2; k++) { console.log("-");var aassd = 99999999999999*99999999999999}
 						   myTable2+="</table><br>";
 						 
 						 document.getElementById('mytable2').innerHTML = myTable2;
@@ -314,7 +314,7 @@ return FEATURE_NAME;
 					   document.getElementById('mytable').innerHTML = myTable;
 					    console.log("numloop:"+i);
 						// console.log("no results:"+count);
-						for(var k = 0, len1 = 990; k < len1; k++) { console.log("-");var aassd = 99999999999999*99999999999999}
+						for(var k = 0, len1 = 590; k < len1; k++) { console.log("-");var aassd = 99999999999999*99999999999999}
 					   console.log("excel: "+rows[i].FEATURE_NAME);
 						
 						 //i++;
@@ -361,7 +361,6 @@ return FEATURE_NAME;
 }while(a!=null || b!=null);
 */
 		  
-		  /*
 			
 			//type: ['restaurant']
 			
@@ -403,13 +402,13 @@ return FEATURE_NAME;
             }
           });
 			
-		
+		/*
           var request = {
 			location: place,
 			radius: '500',
 			type: ['restaurant']
 		  };
-	
+	*/
 		
 			
 		
@@ -460,9 +459,7 @@ return FEATURE_NAME;
           });
           map.fitBounds(bounds);
         });
-		*/
-		
-      }//initautocomplete end
+      }
 
 	  
 	  
