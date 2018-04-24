@@ -257,10 +257,10 @@ return FEATURE_NAME;
 						//var i=1;
 						//places.forEach(function(place) {
 						j=1
-						for(var i = 1, len = 60; i < len; i++) {
+						for(var i = 1, len = 25; i < len; i++) {
 					   var displaySuggestions = function(predictions, status) {
 						if (status != google.maps.places.PlacesServiceStatus.OK) {
-						  //alert(status);
+						  alert(status);
 						  count++;
 						  console.log("no results:"+count);
 						  return;
