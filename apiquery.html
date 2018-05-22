@@ -167,16 +167,16 @@
  var f = "Geonames_to_test_v_Google.csv"
 d3.csv(f, function(d) {
   return {
-    FEATURE_NAME: d.FEATURE_NAME, FEATURE_ID: d.FEATURE_ID,
+    LOCATION_DESCRIPTION: d.LOCATION_DESCRIPTION, FEATURE_ID: d.FEATURE_ID,
  };
 }, function(error, rows) {
 	d3.select("#output")
 		.text(
-			rows[0].FEATURE_NAME + " " +
+			rows[0].LOCATION_DESCRIPTION + " " +
 			rows[0].FEATURE_ID + " " )
 			
 });
-return FEATURE_NAME;
+return LOCATION_DESCRIPTION;
 }*/
   
 
@@ -246,13 +246,13 @@ return FEATURE_NAME;
 		  
 			d3.csv(f, function(d) {
 			  return {
-				FEATURE_NAME: d.FEATURE_NAME, FEATURE_ID: d.FEATURE_ID,
+				LOCATION_DESCRIPTION: d.LOCATION_DESCRIPTION, FEATURE_ID: d.FEATURE_ID,
 			 };
 			 
 			}, function(error, rows) {
 				d3.select("#output")
 					.text(
-						rows[0].FEATURE_NAME + " " +
+						rows[0].LOCATION_DESCRIPTION + " " +
 						rows[0].FEATURE_ID + " " )
 						//var i=1;
 						//places.forEach(function(place) {
@@ -305,29 +305,29 @@ return FEATURE_NAME;
 					  
 					  //change timeout location
 					//setTimeout(function(){ 
-					  service.getQueryPredictions({ input: rows[i].FEATURE_NAME }, displaySuggestions);
+					  service.getQueryPredictions({ input: rows[i].LOCATION_DESCRIPTION }, displaySuggestions);
 					  //}, 2000);
 					 
 					   //document.getElementById('results').appendChild(displaySuggestions);
-					   myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps;  font-style:italic;'>geolocation:"+rows[i].FEATURE_NAME +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
+					   myTable+="<tr><td style='height:15px; color:black; font-variant: small-caps;  font-style:italic;'>geolocation:"+rows[i].LOCATION_DESCRIPTION +"</td></tr><tr><td style='height:15px;'>&nbsp;</td></tr>";
 						myTable+="</table><br>";
 					   document.getElementById('mytable').innerHTML = myTable;
 					    console.log("numloop:"+i);
 						// console.log("no results:"+count);
 						for(var k = 0, len1 = 500; k < len1; k++) { console.log("-");var aassd = 99999999999999*99999999999999}
-					   console.log("excel: "+rows[i].FEATURE_NAME);
+					   console.log("excel: "+rows[i].LOCATION_DESCRIPTION);
 						
 						 //i++;
 						 
 						 }
 						 
 					  //}); places for each
-						 //console.log(rows[i].FEATURE_NAME); rows[i].FEATURE_NAME
+						 //console.log(rows[i].LOCATION_DESCRIPTION); rows[i].LOCATION_DESCRIPTION
 						 
 						 
-						// exportToCsv('test.csv',[[rows[1].FEATURE_NAME,predictionarray[0]],] )
+						// exportToCsv('test.csv',[[rows[1].LOCATION_DESCRIPTION,predictionarray[0]],] )
 			});
-			//[[rows[1].FEATURE_NAME,predictionarray[1]],]
+			//[[rows[1].LOCATION_DESCRIPTION,predictionarray[1]],]
 			
 			
 		
